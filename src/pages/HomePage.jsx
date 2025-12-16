@@ -3,6 +3,7 @@ import FlatViewer from '../components/3d/FlatViewer';
 import Button from '../components/common/Button';
 import EMICalculator from '../components/tools/EMICalculator';
 import WhatsAppButton from '../components/common/WhatsAppButton';
+import DemoDisclaimer from '../components/common/DemoDisclaimer';
 
 /**
  * Home page with hero section and 3D viewer
@@ -177,6 +178,9 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
+      {/* Demo Disclaimer Section */}
+      <DemoDisclaimer />
 
       {/* CTA Section */}
       <section className="section-padding bg-gradient-to-br from-accent-500 to-accent-600 text-white">
