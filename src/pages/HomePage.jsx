@@ -1,4 +1,5 @@
 import React from 'react';
+import BuildingViewer from '../components/3d/BuildingViewer';
 import FlatViewer from '../components/3d/FlatViewer';
 import Button from '../components/common/Button';
 import EMICalculator from '../components/tools/EMICalculator';
@@ -38,7 +39,7 @@ const HomePage = () => {
                 <Button 
                   variant="primary" 
                   size="lg"
-                  onClick={() => scrollToSection('3d-tour')}
+                  onClick={() => window.location.href = '/virtual-tour'}
                 >
                   Start 3D Tour
                 </Button>
@@ -68,10 +69,10 @@ const HomePage = () => {
               </div>
             </div>
 
-            {/* Right: 3D Viewer Preview */}
+            {/* Right: 3D Building Viewer */}
             <div className="relative fade-in" style={{ animationDelay: '0.2s' }}>
               <div className="aspect-square lg:aspect-auto lg:h-[600px]">
-                <FlatViewer />
+                <BuildingViewer />
               </div>
             </div>
           </div>
@@ -93,20 +94,62 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Full-Width 3D Experience Section */}
-      <section id="3d-tour" className="section-padding bg-neutral-900 text-white">
+      {/* Virtual Tour CTA Section */}
+      <section id="3d-tour" className="section-padding bg-gradient-to-br from-neutral-900 via-accent-900 to-neutral-900 text-white">
         <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="heading-lg mb-4">Walk Through Your Future Home</h2>
-            <p className="text-xl text-neutral-300 max-w-3xl mx-auto">
-              Take control and explore the flat in first-person view. Use WASD to walk through 
-              each room and experience the space like you're actually there.
-            </p>
-          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Text and CTA */}
+            <div className="space-y-6">
+              <h2 className="heading-lg mb-4">Walk Through Your Future Home</h2>
+              <p className="text-xl text-neutral-300">
+                Experience our properties like never before with our immersive 3D virtual tour. 
+                Navigate through rooms in first-person view using intuitive controls—WASD to 
+                walk and mouse to look around. Get a true feel for the space before you visit.
+              </p>
+              
+              {/* Features List */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-accent-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-lg">✓</span>
+                  </div>
+                  <span>First-person navigation with WASD controls</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-accent-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-lg">✓</span>
+                  </div>
+                  <span>360° views of every room</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-accent-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-lg">✓</span>
+                  </div>
+                  <span>Accurate measurements and dimensions</span>
+                </div>
+              </div>
 
-          {/* Full-width 3D Viewer with FPP */}
-          <div className="w-full h-[70vh] max-h-[800px]">
-            <FlatViewer firstPersonMode={true} />
+              <div className="pt-4">
+                <Button 
+                  variant="primary" 
+                  size="lg"
+                  onClick={() => window.location.href = '/virtual-tour'}
+                >
+                  Start Virtual Tour
+                </Button>
+              </div>
+            </div>
+
+            {/* Right: Preview */}
+            <div className="relative">
+              <div className="aspect-square lg:aspect-video rounded-2xl overflow-hidden shadow-2xl">
+                <FlatViewer />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/60 to-transparent rounded-2xl pointer-events-none"></div>
+              <div className="absolute bottom-6 left-6 right-6 text-center">
+                <p className="text-sm text-white/80 mb-3">Click to explore the full experience</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

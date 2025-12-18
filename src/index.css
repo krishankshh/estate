@@ -65,6 +65,10 @@
     @apply bg-white/90 backdrop-blur-md border border-neutral-200/50;
   }
 
+  .glass-effect-dark {
+    @apply bg-neutral-900/80 backdrop-blur-md border border-white/10;
+  }
+
   .fade-in {
     animation: fadeIn 0.6s ease-in;
   }

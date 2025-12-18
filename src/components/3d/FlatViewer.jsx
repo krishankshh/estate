@@ -72,12 +72,12 @@ const AutoRotate = ({ enabled }) => {
  * Main 3D Flat Viewer Component
  * @param {boolean} firstPersonMode - Enable first-person walkthrough mode
  */
-const FlatViewer = ({ firstPersonMode = false }) => {
+const FlatViewer = ({ firstPersonMode = false, hideInstructions = false }) => {
   const [activeRoom, setActiveRoom] = useState('default');
   const [isAutoRotate, setIsAutoRotate] = useState(!firstPersonMode);
   const [isLoading, setIsLoading] = useState(true);
   const [userPosition, setUserPosition] = useState({ x: 0, z: 8, rotation: 0 });
-  const [showInstructions, setShowInstructions] = useState(firstPersonMode);
+  const [showInstructions, setShowInstructions] = useState(firstPersonMode && !hideInstructions);
   const [isPointerLocked, setIsPointerLocked] = useState(false);
   const [activeFeature, setActiveFeature] = useState(null); // null, 'measure', 'sunlight', 'hotspots'
   const isWebGLSupported = useWebGL();
@@ -260,7 +260,7 @@ const FlatViewer = ({ firstPersonMode = false }) => {
       )}
 
       {/* First-Person Mode UI */}
-      {firstPersonMode && !isLoading && (
+      {firstPersonMode && !isLoading && !hideInstructions && (
         <>
           {/* Mini-map - positioned relative to this section */}
           <MiniMap userPosition={userPosition} />
@@ -280,12 +280,12 @@ const FlatViewer = ({ firstPersonMode = false }) => {
               id="instructions"
               className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-30 cursor-pointer"
               onClick={(e) => {
-                e.stopPropagation();
                 setShowInstructions(false);
-                // Small delay to ensure state is updated before pointer lock request
+                // Request pointer lock directly on the canvas element
                 setTimeout(() => {
-                  if (canvasRef.current) {
-                    canvasRef.current.click();
+                  const canvas = document.querySelector('canvas');
+                  if (canvas) {
+                    canvas.requestPointerLock();
                   }
                 }, 100);
               }}
@@ -295,7 +295,7 @@ const FlatViewer = ({ firstPersonMode = false }) => {
                 <div className="space-y-3 text-neutral-700">
                   <p className="flex items-center gap-3">
                     <span className="text-2xl">🖱️</span>
-                    <span><strong>Click</strong> to start walking</span>
+                    <span><strong>Click anywhere</strong> to start walking</span>
                   </p>
                   <p className="flex items-center gap-3">
                     <span className="text-2xl">⌨️</span>
@@ -320,8 +320,9 @@ const FlatViewer = ({ firstPersonMode = false }) => {
                     e.stopPropagation();
                     setShowInstructions(false);
                     setTimeout(() => {
-                      if (canvasRef.current) {
-                        canvasRef.current.click();
+                      const canvas = document.querySelector('canvas');
+                      if (canvas) {
+                        canvas.requestPointerLock();
                       }
                     }, 100);
                   }}

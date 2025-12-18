@@ -154,7 +154,7 @@ const FirstPersonControls = ({ onPositionChange }) => {
   useFrame((state, delta) => {
     if (!controlsRef.current?.isLocked || !modelBounds) return;
 
-    const speed = 1.5; // Reduced from 2.5 for slower, more realistic walking
+    const speed = 0.8; // Reduced for comfortable walking speed
     const dampingFactor = 8.0;
     const collisionDistance = 0.8; // Distance to check for walls
 
@@ -249,7 +249,6 @@ const FirstPersonControls = ({ onPositionChange }) => {
     <PointerLockControls
       ref={controlsRef}
       args={[camera, gl.domElement]}
-      selector="#instructions"
     />
   );
 };
